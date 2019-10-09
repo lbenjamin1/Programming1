@@ -45,34 +45,21 @@ public class LinkedList<E> {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
+        add(value);
+    }
 
+// for the case of adding between two nodes
 //        Node<E> temp = head;
-//        while (temp.getNext() != null) {
+//        for(int i = 0; i < index ; i++){
 //            temp = temp.getNext();
 //        }
 //
-//        Node<E> newNode = new Node<>(value);
+//        Node<E> newNode = new Node<>();
+//
+//        newNode.setData(value);
+//        newNode.setNext(temp.getNext());
 //        temp.setNext(newNode);
-
-
-//        //for the case of adding between two nodes
-        Node<E> temp = head;
-        for(int i = 0; i < index ; i++){
-            temp = temp.getNext();
-        }
-
-        Node<E> newNode = new Node<>();
-
-        newNode.setData(value);
-        newNode.setNext(temp.getNext());
-        temp.setNext(newNode);
-    }
-
-
-
-//        for (int i = 0; i < index; i++){
-//            head.setData(value);
-//        }
+//    }
 
     /**
      * TODO Implement this method.
