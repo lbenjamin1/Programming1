@@ -50,8 +50,6 @@ public class LinkedList<E> {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
-
-        //for the situation of adding at the beginning
         if (index == 0){
             Node<E> newNode = new Node<>();
             newNode.setData(value);
