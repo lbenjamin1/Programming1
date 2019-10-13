@@ -1,3 +1,9 @@
+/*
+Lewis Benjamin
+Java I Programming (WIIT-33851)
+10/09/19
+ */
+
 
 public class LinkedList<E> {
 
@@ -15,7 +21,6 @@ public class LinkedList<E> {
      * @param head The value to be added.
      */
     public void add(E value) {
-
         if (size() == 0) {
             head.setData(value);
         } else {
@@ -45,21 +50,25 @@ public class LinkedList<E> {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
-        add(value);
+
+        //for the situation of adding at the beginning
+        if (index == 0){
+            Node<E> newNode = new Node<>();
+            newNode.setData(value);
+            newNode.setNext(head);
+            head = newNode;
+        } else {
+            Node<E> temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp.getNext();
+            }
+            Node<E> newNode = new Node<>();
+            newNode.setData(value);
+            newNode.setNext(temp.getNext());
+            temp.setNext(newNode);
+        }
     }
 
-// for the case of adding between two nodes
-//        Node<E> temp = head;
-//        for(int i = 0; i < index ; i++){
-//            temp = temp.getNext();
-//        }
-//
-//        Node<E> newNode = new Node<>();
-//
-//        newNode.setData(value);
-//        newNode.setNext(temp.getNext());
-//        temp.setNext(newNode);
-//    }
 
     /**
      * TODO Implement this method.
@@ -80,10 +89,9 @@ public class LinkedList<E> {
         Node<E> currentNode = head;
         int count = 1;
 
-        if(currentNode.getNext() == null && currentNode.getData() == null){
+        if (currentNode.getNext() == null && currentNode.getData() == null){
             return 0;
-        }
-        while (currentNode.getNext() != null) {
+        } while (currentNode.getNext() != null) {
             currentNode = currentNode.getNext();
             count++;
         }
@@ -102,13 +110,13 @@ public class LinkedList<E> {
      */
     public E get(int index) {
         if (index < 0 || index >= size()){
-            throw new IndexOutOfBoundsException();}
-
-            Node<E> temp = head;
-            for (int i = 0; i < index; i++) {
-                temp = temp.getNext();
-            }
-            return temp.getData();
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.getNext();
+        }
+        return temp.getData();
     }
 
     /**
@@ -119,15 +127,14 @@ public class LinkedList<E> {
      * @throws IndexOutOfBoundsException When the list is empty.
      */
     public E remove() {
-        if(size() <= 0){
+        if (size() <= 0){
             throw new IndexOutOfBoundsException();
         }
-        if(size() == 1){
+        if (size() == 1){
             E deletedData = this.head.getData();
             this.head.setData(null);
             return deletedData;
         }
-
         E deletedData = this.head.getData();
         this.head = this.head.getNext();
         return deletedData;
@@ -144,6 +151,22 @@ public class LinkedList<E> {
      * @throws IndexOutOfBoundsException when removing from index less than zero or greater than or equal to size.
      */
     public E remove(int index) {
-        return null;
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index == 0){
+            E data = head.getData();
+            head = head.getNext(); 
+            return data;
+        } else {
+            Node<E> temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp.getNext();
+            }
+            E data = temp.getNext().getData();
+            temp.setNext(temp.getNext().getNext());
+            return data;
+        }
     }
 }
